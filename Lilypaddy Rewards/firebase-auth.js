@@ -69,7 +69,6 @@ function signUp() {
   const password = document.getElementById("password").value;
   if (document.getElementById("name").value === "" || document.getElementById("email").value === "" || document.getElementById("password").value === "") {
     alert("Please fill out all fields!")
-    document.getElementById("data").style.display = "block";
     return;
   }
   auth.createUserWithEmailAndPassword(email, password)
@@ -86,6 +85,7 @@ function signUp() {
       }).then(() => {
         document.getElementById("login-form").style.display = "none";
         document.getElementById("logout-form").style.display = "block";
+        document.getElementById("data").style.display = "block";
         alert("Sign Up successful");
         localStorage.setItem('status', true);
       });
