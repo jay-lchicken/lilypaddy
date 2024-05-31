@@ -40,7 +40,7 @@ function login() {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Error: " + errorMessage);
+      alert("Error: Incorrect Password");
     });
 }
 function getCurrentUserId() {
@@ -64,7 +64,7 @@ function getUserPoints() {
       console.log("No such document!");
     }
   }).catch((error) => {
-    console.error("Error getting document:", error);
+    alert("Error: Please try again later, if this error persists, please contact the owner");
   });
 }
 // Function to handle user signup
@@ -99,7 +99,7 @@ function signUp() {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Error: " + errorMessage);
+      alert("Error: Please try again later, if this error persists, please contact the owner");
     });
 }
 
@@ -112,7 +112,7 @@ function logout() {
     document.getElementById("data").style.display = "none";
     localStorage.setItem('status', false);
   }).catch((error) => {
-    alert("Error: " + error.message);
+    alert("Error: Please try again later, if this error persists, please contact the owner");
   });
 }
 
