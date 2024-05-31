@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title style="font-family: Copperplate;">Lilypaddy Rewards Web</title>
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/5cQRDst/IMG-5348.jpg">
+</head>
+<style>
+  input[type="email"], input[type="password"], input[type="text"], button {width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px;}
+  button {background-color: #007bff; color: #fff; cursor: pointer; transition: background-color 0.3s ease;}
+  button:hover {background-color: #0056b3;}
+</style>
+<body style = "text-align: center;">
+  <h1>Rewards Web</h1>
+  <div id="login-form">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type = "text" id = "name" placeholder="What Should We Call You?(Optional for people logging in)">
+    <h4>By Pressing Login/Signup, you are to be informed that this web will not be responsible for any loss of points or any other damages that may occur, including data leaks. If you do not agree, please leave immediately. </h4>
+    <button onclick="login()">Login</button>
+    <button onclick="signUp()">Sign Up</button>
+  </div>
+  <div id = "data" style="display: none;">
+    <p id="user-points"></p>
+    <div id="qrcode" style="text-align: center; "></div>
+    <button onclick="refresh()">Refresh</button>
+    
+  </div>
+  <div id="logout-form" style="display: none;">
+    <button onclick="logout()">Logout</button>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <!-- Include the custom JavaScript file -->
+  <script src="firebase-auth.js"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script>
+    if (localStorage.getItem('status') === 'true'){
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("logout-form").style.display = "block";
+      document.getElementById("data").style.display = "block";
+    }
+    function createUser(){
+      db.collection("users").doc("fsdfgsd").set({
+        email: "email",
+        name: "name", // You can add a name input field and get the value here
+        userId: "id",
+        points: 0
+      })
+    }
+    async function refresh(){
+      document.getElementById("user-points").style.display = 'none';
+      document.getElementById("qrcode").style.display = 'none';
+      try {
+          await getUserPoints();
+      } finally {
+          document.getElementById("user-points").style.display = 'block';
+          document.getElementById("user-points").style.textAlign = 'center';
+          
+      
+      }
+      try {
+          await createQR();
+      } finally {
+        document.getElementById("qrcode").style.display = 'block';
+          document.getElementById("qrcode").style.textAlign = 'center';
+      }
+    }
+    function getCurrentUserId() {
+      const user = auth.currentUser;
+      if (user) {
+        return user.uid;
+      } else {
+        return null;
+      }
+    }
+    var userId = getCurrentUserId();
+    new QRCode(document.getElementById("qrcode"), userId);
+    function createQR(){
+      document.getElementById("qrcode").innerHTML = ""
+      var userId = getCurrentUserId();
+      new QRCode(document.getElementById("qrcode"), userId);
+      document.getElementById("qrcode").style.textAlign = "center"
+      document.getElementById("qrcode").style.textAlign = 'center';
+
+    }
+  </script>
+  
+</body>
+</html>
+
+
