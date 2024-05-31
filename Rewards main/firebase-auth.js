@@ -40,7 +40,7 @@ function login() {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Error: Incorrect Password");
+      alert("Error: Invalid Credentials");
     });
 }
 function getCurrentUserId() {
